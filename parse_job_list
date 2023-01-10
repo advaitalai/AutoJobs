@@ -1,0 +1,15 @@
+from bs4 import BeautifulSoup
+import utils
+
+class JobList:
+    
+    def __init__(self, url) -> None:
+        self.soup = BeautifulSoup(utils.get_html_src(url), 'html.parser')
+    
+    def get_title(self):
+        print(self.soup.title)
+        
+if __name__ == '__main__':
+    url = 'https://miro.com/careers/vacancy/6502537002/'
+    job = ParseJob(url)
+    job.get_title()
