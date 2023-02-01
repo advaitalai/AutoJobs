@@ -1,25 +1,25 @@
-from bs4 import element
-from bs4 import BeautifulSoup
-import requests, re
-import time
-from selenium import webdriver
-from requests_html import HTMLSession
+from seleniumwire import webdriver  # Import from seleniumwire
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
-url = 'https://jobs.accel.com/#srch_jobsTab'
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
 
+# Create a new instance of the Chrome driver
+driver = webdriver.Chrome(chrome_options=options)
 
-# This is the vanilla requests route. Doesn't solve for javascript rendered pages.
-# response = requests.get(url)
+# Go to the Google home page
+driver.get('https://jobs.accel.com/#srch_jobsTab')
 
-# Trying the requests_HTML route
-session = HTMLSession()
-r = session.get(url)
+wait = WebDriverWait(driver, 30)
+wait.until(EC.invisibility_of_element_located((By.XPATH, "//*[contains(text(),'Loading')]")))
 
-r.html.render(timeout=20)
-soup = BeautifulSoup(r.html.html, 'lxml')
-
-cnt = 1
-for d in soup.descendants:
-    if isinstance(d, element.NavigableString) and not isinstance(d, element.Comment) and not isinstance(d, element.Script) and not d.string.isspace():
-        print('%d %s: %s' %(cnt, type(d), d.string))
-        cnt += 1
+# Access requests via the `requests` attribute
+for request in driver.requests:
+    if request.response:
+        print(
+            request.url,
+            request.response.status_code,
+            request.response.headers['Content-Type']
+        )

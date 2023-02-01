@@ -160,7 +160,7 @@ def print_tree(tag, escape_re: re.Pattern) -> None:
     if isinstance(tag, element.NavigableString):
         print(tag)
         
-    # Exit if we find an escape match
+    # Exit if we find an escape
     
     # Print descendants if any
     
