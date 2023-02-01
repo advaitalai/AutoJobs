@@ -13,7 +13,7 @@ const {executablePath} = require('puppeteer')
 puppeteer.launch({ headless: true, executablePath: executablePath()}).then(async browser => {
   console.log('Running tests..')
   const page = await browser.newPage()
-  await page.goto('https://bot.sannysoft.com')
+  await page.goto('https://arh.antoinevastel.com/bots/areyouheadless')
   await page.waitForTimeout(5000)
   await page.screenshot({ path: 'testresult.png', fullPage: true })
   await browser.close()
