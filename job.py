@@ -6,7 +6,7 @@ from utils import html
 class Job:   
     def __init__(self) -> None:
         self.title = ''
-        self.location = ''
+        self.locations = [] # list of strings
         self.salary = ''
         self.domain = 'product'
         self.team = ''
@@ -17,8 +17,3 @@ class Job:
         self.company = ''
         self.about_company = ''
     
-    def parse_post(url:str):
-        pass
-    
-    def get_title(self):
-        print(self.soup.title)
